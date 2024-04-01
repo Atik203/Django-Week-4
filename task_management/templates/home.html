@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="w-75 mx-auto d-flex align-items-center justify-content-center gap-3"
+>
+  {% for i in data %}
+  <div class="card" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title">{{i.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Id: {{i.id}}</h6>
+      <p class="card-text">{{i.description}}</p>
+
+      {% for cat in i.category.all %}
+      <button class="btn bg-secondary text-white m-1">{{cat.name}}</button>
+      {% endfor %}
+
+      <div class="mt-2">
+        {% if i.is_completed %}
+        <button class="btn btn-success">Completed</button>
+        {% else %}
+        <a
+          class="btn btn-warning"
+          href="{% url 'edit_task' i.id %}"
+          class="card-link"
+          >Edit</a
+        >
+        <a
+          class="btn btn-danger"
+          href="{% url 'delete_task' i.id %}"
+          class="card-link"
+          >Delete</a
+        >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {%endfor %}
+</div>
+
+{% endblock %}
